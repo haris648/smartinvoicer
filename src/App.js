@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">🧾 SmartInvoicer</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">🧾 Smart Invoicer</h1>
       <div className="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow">
         <InvoiceForm onGenerated={setInvoiceData} />
         {invoiceData && <InvoicePreview data={invoiceData} />}
