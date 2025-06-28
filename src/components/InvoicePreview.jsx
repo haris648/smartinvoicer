@@ -6,7 +6,7 @@ const InvoicePreview = ({ data }) => {
     service,
     rate,
     hours,
-    taxPercent,
+    tax: taxPercent,
   } = data;
 
   const subtotal = rate * hours;
