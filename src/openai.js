@@ -17,7 +17,7 @@ export async function generateSummary(formData) {
         headers: {
             Authorization: `Bearer ${process.env.REACT_APP_OPENROUTER_API_KEY}`,
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://smartinvoicer.vercel.app/",
+            "HTTP-Referer": "https://smartinvoicer.vercel.app",
             "X-Title": "Smart Invoicer",
         },
         body: JSON.stringify({
