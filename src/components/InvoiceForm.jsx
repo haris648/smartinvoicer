@@ -39,7 +39,6 @@ Text: ${input}
         {
           model: "mistralai/mistral-7b-instruct",
           messages: [{ role: "user", content: prompt }],
-          temperature: 0,
         },
         {
           headers: {
