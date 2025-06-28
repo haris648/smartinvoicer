@@ -50,7 +50,12 @@ function App() {
           </div>
         )}
       </div>
+      <footer className="text-center text-gray-500 mt-10">
+        <p className="text-sm">Designed & Developed by <a href="https://github.com/haris648" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">Syed Haris</a></p>
+      </footer>
+
     </div>
+    
   );
 }
 
