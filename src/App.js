@@ -1,23 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import InvoiceForm from "./components/InvoiceForm";
+import InvoicePreview from "./components/InvoicePreview";
+import { InvoiceDownloadLink } from "./components/InvoicePDF";
 
 function App() {
+  const [invoiceData, setInvoiceData] = useState(null);
+  const [history, setHistory] = useState([]);
+
+  // Load saved invoices from localStorage
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("invoices")) || [];
+    setHistory(saved);
+  }, []);
+
+  // Save new invoice to localStorage
+  useEffect(() => {
+    if (invoiceData) {
+      const updatedHistory = [invoiceData, ...history.slice(0, 4)]; // Keep last 5
+      setHistory(updatedHistory);
+      localStorage.setItem("invoices", JSON.stringify(updatedHistory));
+    }
+  }, [invoiceData]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600">🧾 SmartInvoicer</h1>
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded-2xl shadow">
+        <InvoiceForm onGenerated={setInvoiceData} />
+        {invoiceData && <InvoicePreview data={invoiceData} />}
+        {invoiceData && <InvoiceDownloadLink data={invoiceData} />}
+
+        {/* Past Invoices */}
+        {history.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold mb-2">📁 Past Invoices</h2>
+            <ul className="space-y-2">
+              {history.map((inv, idx) => (
+                <li key={idx} className="bg-gray-100 p-3 rounded">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="font-medium">{inv.client} - {inv.service}</p>
+                      <p className="text-sm text-gray-600">${inv.total.toFixed(2)} total</p>
+                    </div>
+                    <InvoiceDownloadLink data={inv} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
